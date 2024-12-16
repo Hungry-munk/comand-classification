@@ -6,14 +6,6 @@ import numpy as np
 from configs import Configs as C
 import math
 
-# A function that will use the txt files in the data to create arrays of file paths  
-#  basedir = ./data/
-def txt_file_path_loader(file_path, base_dir):
-    with open(file_path, 'r') as f:
-        lines = f.readlines()
-    file_paths = [base_dir + line.strip() for line in lines]
-    return file_paths
-
 # converting stereo audio into mono for 1d convelution and training
 def convert_to_mono(wav):
     return tf.reduce_mean(wav, axis = -1, keepdims= True)
