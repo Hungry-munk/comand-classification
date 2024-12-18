@@ -1,10 +1,7 @@
-import os
-import sys
 import tensorflow as tf
-import tensorflow_io as tfio
 import numpy as np
 from configs import Configs as C
-import math
+
 # global variables
 c = C()
 num_classes = c.num_classes
@@ -132,7 +129,7 @@ def create_dataset(X_file_paths, batch_size, target_rate, frame_length, frame_st
         lambda: batch_generator(X_file_paths, batch_size, target_rate, frame_length, frame_step),
         output_signature = (
             tf.TensorSpec(shape=(batch_size, height, width), dtype= tf.float32), #define the shape of X's and Y's
-            tf.TensorSpec(shape=(None, num_classes), dtype=tf.int32)
+            tf.TensorSpec(shape=(batch_size, num_classes), dtype=tf.int32)
         )
     )
 
