@@ -7,11 +7,6 @@ class Configs:
 
     def __init__(self):
         self.base_dir = './data/'
-        # self.spectrogram_configs = {
-        #     'nfft' : 256,
-        #     'window' : 256, #should match nfft
-        #     'stride' : 128 #should be half of nfft
-        # }
         self.spectrogram_configs = {
             'frame_length' : 512, 
             'frame_step': 256
@@ -53,3 +48,6 @@ class Configs:
             "zero": 29
         }
         self.num_classes = len(self.label_encodings)
+        # model stuff
+        self.learning_rate = 1e-4
+        self.epochs = 15

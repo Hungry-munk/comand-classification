@@ -87,6 +87,8 @@ def batch_generator(X_file_paths, batch_size, target_rate, frame_length, frame_s
         # logormithic normalziation of spectrogram
         spectrogram = tf.cast(spectrogram, tf.float32)
         spectrogram = tf.math.log1p(spectrogram) #log1p is a better version of log + epsillon
+        # expand spectrogram dims for training 
+        spectrogram = tf.expand_dims(spectrogram, axis= -1)
 
         # add data to dataset
         x_data.append(spectrogram)
@@ -128,7 +130,7 @@ def create_dataset(X_file_paths, batch_size, target_rate, frame_length, frame_st
     dataset = tf.data.Dataset.from_generator(
         lambda: batch_generator(X_file_paths, batch_size, target_rate, frame_length, frame_step),
         output_signature = (
-            tf.TensorSpec(shape=(batch_size, height, width), dtype= tf.float32), #define the shape of X's and Y's
+            tf.TensorSpec(shape=(batch_size, height, width, 1), dtype= tf.float32), #define the shape of X's and Y's
             tf.TensorSpec(shape=(batch_size, num_classes), dtype=tf.int32)
         )
     )
